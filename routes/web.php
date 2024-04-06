@@ -80,10 +80,14 @@ Route::get("/contact", [ContactController::class, "edit"])->name('contact');
     Route::delete("/settings", [SettingsController::class, "destroy"])->name('settings.destroy');
    
 
+<<<<<<< HEAD
     //Favourites
     Route::get("/favourites", [FavouriteController::class, "edit"])->name('favourites');
     Route::post("/favourites", [FavouriteController::class, "addFav"])->name('favourites.addFav');
 
+=======
+  
+>>>>>>> 0f41085316ca99701e3fe728f64e0dbe0ea1a796
    //Send Mail
    Route::post('/send-message/{type}', [UsersController::class, "sendEmail"])->name('send-email');
 

@@ -19,7 +19,6 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\HowItWorksController;
 use App\Http\Controllers\AcceptTermsController;
-use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentListController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\AuthenticatedSessionController;
@@ -92,12 +91,20 @@ Route::get("/contact", [ContactController::class, "edit"])->name('contact');
 
  //appointment_form
 
- Route::get("/appointment_form",[AppointmentController::class,'edit'])->name('appointment_form');
- Route::post("/appointment_form",[AppointmentController::class,'store'])->name('appointment_form.store');
+ Route::get("/appointment_form",[AppointmentListController::class,'edit'])->name('appointment_form');
+ Route::post("/appointment_form",[AppointmentListController::class,'store'])->name('appointment_form.store');
 
 Route::get("/appointment_list", [AppointmentListController::class,'index'])->name('appointment_list');
 
+    /////////////////////////////////////////////////////////////////////////////
+             //Zoom
 
-Route::get("/connect",function(){
-    return view('clinic.connect');
-})->name('connect');
+    ////////////////////////////////////////////////////////////////////////////
+    Route::get('/zoom/pre_zoom_redirect/{id}', [ZoomController::class, 'preZoomRedirect'])->name('pre_zoom_redirect');
+
+    Route::get('/zoom', function () {
+        return view('zoom.index')->with('status', 'zoom');
+    });
+    Route::get('start', [ZoomController::class, 'index']);
+    Route::any('/zoom/zoom-meeting-create', [ZoomController::class, 'index'])->name('zoom-meeting-create');
+    

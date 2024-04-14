@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -48,19 +47,6 @@ class AuthenticatedSessionController extends Controller
     //  failed
         return redirect('/login')->withInput($request->except('password'))->withErrors(['email' => 'Invalid Email']);
 }
-
-///////////////////////////////////////////////////////////////////////////
-
-/////////////////   Doctor   /////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////
-
-
-public function createDoc(){
-    return view('doctor.login');
-  }
-
-  
 
 
 // public function toggleFavorite(Request $request, $petId)

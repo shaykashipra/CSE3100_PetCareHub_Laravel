@@ -7,9 +7,6 @@ body {
 .login-container div.login-image.login {
   background-image: url(../images/login-image.jpg);
 }
-.login-container div.login-image.loginDoc {
-  background-image: url(../images/loginDoc-image.jpg);
-}
 .login-container div.login-image.register {
   background-image: url(../images/register-image.jpg);
 }

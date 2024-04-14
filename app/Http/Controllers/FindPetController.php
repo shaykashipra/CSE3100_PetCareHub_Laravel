@@ -19,7 +19,7 @@ class FindPetController extends Controller
         $city = $request->get('city');
 
     $query = Pet::where('animal_type', $type);
-   
+        
         if ($gender && $gender !== "any") {
             $query->where('gender', $gender);
         }
@@ -63,15 +63,15 @@ class FindPetController extends Controller
         }
 
         else if($type==='contact'){
-            $pet = Pet::find($id);
-
             $user=User::find(session('user_id')); 
-
-            $owner=User::find($pet['user_id']);
-               return view('pets.contact-owner', compact('user','owner'));
+               return view('pets.contact', compact('user'));
      
         }
     }
 
-  
+    public function contactOwner($id)
+    {
+        $pet = Pet::find($id);
+        return view('pets.contact-owner', compact('pet'));
+    }
 }

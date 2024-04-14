@@ -14,13 +14,4 @@ class LogoutController extends Controller
         
         return redirect('/');
     }
-
-        public function logoutDoc(Request $request)
-    {
-        $request->session()->flush();
-
-        $request->session()->regenerateToken();
-        
-        return redirect('/');
-    }
 }

@@ -10,7 +10,6 @@
 @section('content')
 <div class="container">
     <div class="content">
-        
       <div class="left-side">
         <div class="address details">
           <i class="fas fa-map-marker-alt"></i>
@@ -27,17 +26,11 @@
         <div class="email details">
           <i class="fas fa-envelope"></i>
           <div class="topic">Email</div>
-          <div class="text-one">triviatruism@gmail.com</div>
+          <div class="text-one">triviatruisam@gmail.com</div>
           <div class="text-two">shaykashipra@gmail.com</div>
         </div>
       </div>
       <div class="right-side">
-          @if (session('status') === 'email-sent')
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success! </strong>Email has be sent to Admin.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          @endif
         <div class="topic-text">Send us a message</div>
         <p>If you have any questions or inquiries, you can contact us by sending us a message. It will be our pleasure to help you.</p>
       <form action="{{ route('send-email', 'admin') }}" method="POST">
@@ -69,7 +62,5 @@
   </div>
 @endsection
 @section('js')
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    
 @endsection

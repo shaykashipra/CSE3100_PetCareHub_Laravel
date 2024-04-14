@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
      Session::put('user_id', $user->id);
       Session::put('user_name', $user->fname . " " . $user->lname);
       Session::put('user_image', $user->image);
-     //success
+//success
         return redirect('/');
     }
 }

@@ -21,18 +21,12 @@
                 <strong>Success! </strong>Password has been successfully updated
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @elseif (session('status') === 'password-updated-failed')
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error! </strong>Wrong Password Entered
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
          @elseif (session('status') === 'wrong-password')
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Unsuccessful! </strong>Wrong password entered.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        
         <p>{{session('status')}}</p>
             <!-- Password Container -->
             <div class="container">

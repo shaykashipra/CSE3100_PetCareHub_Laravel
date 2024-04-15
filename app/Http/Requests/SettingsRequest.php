@@ -23,8 +23,7 @@ class SettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'current_password' => ['required'],
-            'password' => ['required', 'confirmed']    
-           ];
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed']       ];
     }
 }

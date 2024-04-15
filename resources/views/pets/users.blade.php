@@ -60,15 +60,19 @@
                         <div class="col-md-6">
                             <label for="provinceEdit" class="form-label">Province</label>
                             <select id="provinceEdit" class="form-select" name="provinceEdit">
-                            <option>Dhaka</option>
-                                <option>Chittagong</option>
-                                <option>Rajshahi</option>
-                                <option>Khulna</option>
-                                <option>Barisal</option>
-                                <option>Sylhet</option>
-                                <option>Rangpur</option>
-                                <option>Mymensingh</option>
-
+                                <option>Alberta</option>
+                                <option>British Columbia</option>
+                                <option>Manitoba</option>
+                                <option>New Brunswick</option>
+                                <option>New Foundland and Labrador</option>
+                                <option>Northwest Territories</option>
+                                <option>Nova Scotia</option>
+                                <option>Nunavut</option>
+                                <option>Ontario</option>
+                                <option>Prince Edward Island</option>
+                                <option>Quebec</option>
+                                <option>Saskatchewan</option>
+                                <option>Yukon Territory</option>
                             </select>
                         </div>
                         <div class="col-md-12">
@@ -99,12 +103,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
- @if (session('status') === 'user-profile-delete-failed')
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Error! </strong>User Profile could not be deleted. 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
         <div class="container-fluid d-flex align-items-center">
             <button type="button" id="sideBarCollapse" class="btn btn-secondary me-3"><i class="fa-solid fa-bars"></i></button>
             <h1 class="fw-bold">Users</h1>
@@ -151,10 +149,10 @@
                                 <td>{{$u->postal_code}}</td>
                                 <td class="d-flex">
                                     <button type="button" class="btn btn-primary edit me-2" title="Edit">Edit</button>
-                                    <form action="{{ route('users.destroy') }}" method="POST">
+                                    <form action="{{route('users.destroy')}}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <input type="hidden" name="id" id="id" value="{{$u->id}}"> 
+                                        <input type="hidden" name="id" id="id" value="{{session()->get('user_id')}}"> 
                                         <button type="submit" class="btn btn-danger" title="Delete">Delete</button>
                                     </form>
                                 </td>

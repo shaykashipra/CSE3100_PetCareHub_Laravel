@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use App\Models\Pet;
 use Illuminate\Http\Request;
 use App\Models\Characteristic;
+use App\Models\User;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -28,7 +30,7 @@ class PetsController extends Controller
             'characteristics'=>$characteristics,
             'animal_types'=>$animal_types,
             'coat_lengths'=>$coat_lengths,
-            'user' => $request->user(),
+            'user' => User::all(),
             'pets'=>$pets,
         ]);
     }

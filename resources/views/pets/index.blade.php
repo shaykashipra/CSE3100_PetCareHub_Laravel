@@ -30,11 +30,14 @@
             <div class="swiper-pagination"></div>
         </div>
     </main>
-
-    <section class="container d-flex align-items-center justify-content-center pet-options">
-        <div>
-            <h1 class="fw-bold text-center">Find your new best friend</h1>
+         <div>
+            {{-- <h1 class="fw-bold text-center">Find your new best friend</h1> --}}
+            <h1 class="heading fw-bold m-0 p-3 text-center">Find your new best friend</h1>
         </div>
+    <section class="container d-flex align-items-center justify-content-center pet-options">
+        {{-- <div>
+            <h1 class="fw-bold text-center">Find your new best friend</h1>
+        </div> --}}
         <div class="d-flex card-container flex-wrap">
             <div class="card">
                 <a class="nav-link" href="filter-pets?type=dog"><img src="./images/dog.png" alt="dog">
@@ -47,8 +50,13 @@
                 </a>
             </div>
             <div class="card">
-                <a class="nav-link" href="filter-pets?type=barnyard"><img src="./images/paw.png" alt="other animals">
+                <a class="nav-link" href="filter-pets?type=bird"><img src="./images/paw.png" alt="other animals">
                     <p class="text-center">Other Animals</p>
+                </a>
+            </div>
+                       <div class="card">
+                <a class="nav-link" href="{{route('breeds')}}"><img src="./images/happy.png" alt="Cat">
+                    <p class="text-center">Meow</p>
                 </a>
             </div>
         </div>
@@ -96,71 +104,7 @@
                 </div>
                    @endforeach
 
-                {{-- <div class="featured-pet-card">
-                    <a href="/duke" class="nav-link">
-                        <div class="featured-pet-image">
-                            <img src="./images/petShop/mixed_breed_promi_apu.jpg" width="230px" alt="">
-                            <i id="3" class="fa-regular fa-heart favourite-icon"></i>
-                        </div>
-                        <div class="featured-pet-content">
-                            <h3 class="text-center fw-bold">Guddu</h3>
-                            <p class="text-center m-0">Male</p>
-                            <p class="text-center m-0">Pabna</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="featured-pet-card">
-                    <a href="/milo" class="nav-link">
-                        <div class="featured-pet-image">
-                            <img src="./images/petShop/mixed_breed_isha.jpg" width="230px" alt="">
-                            <i id="3" class="fa-regular fa-heart favourite-icon"></i>
-                        </div>
-                        <div class="featured-pet-content">
-                            <h3 class="text-center fw-bold">Toothless</h3>
-                            <p class="text-center m-0">Female</p>
-                            <p class="text-center m-0">Dhaka</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="featured-pet-card">
-                    <a href="/rex" class="nav-link">
-                        <div class="featured-pet-image">
-                            <img src="./images/featured_3.jpg" width="230px" alt="">
-                            <i id="3" class="fa-regular fa-heart favourite-icon"></i>
-                        </div>
-                        <div class="featured-pet-content">
-                            <h3 class="text-center fw-bold">Rex</h3>
-                            <p class="text-center m-0">Male</p>
-                            <p class="text-center m-0">North York</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="featured-pet-card">
-                    <a href="/dollar" class="nav-link">
-                        <div class="featured-pet-image">
-                            <img src="./images/featured_4.jpg" alt="">
-                            <i id="3" class="fa-regular fa-heart favourite-icon"></i>
-                        </div>
-                        <div class="featured-pet-content">
-                            <h3 class="text-center fw-bold">Dollar</h3>
-                            <p class="text-center m-0">Male</p>
-                            <p class="text-center m-0">Mississauga</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="featured-pet-card">
-                    <a href="/leo" class="nav-link">
-                        <div class="featured-pet-image">
-                            <img src="./images/featured_5.jpg" alt="">
-                            <i id="3" class="fa-regular fa-heart favourite-icon"></i>
-                        </div>
-                        <div class="featured-pet-content">
-                            <h3 class="text-center fw-bold">Leo</h3>
-                            <p class="text-center m-0">Male</p>
-                            <p class="text-center m-0">Toronto</p>
-                        </div>
-                    </a>
-                </div> --}}
+      
             </div>
         </div>
     </section>
@@ -197,22 +141,22 @@
                 <div class="achievement-card p-4">
                     <img class="me-3 p-2" src="./images/achieve_1.png" alt="">
                     <div>
-                        <h1 class="fw-bold fs-2 m-0" style="color: #fabe2c;">1,245</h1>
+                        <h1 class="fw-bold fs-2 m-0" style="color: #fabe2c;">{{ $totalUsers }}</h1>
                         <h1 class="fs-5 m-0">Members</h1>
                     </div>
                 </div>
                 <div class="achievement-card p-4">
                     <img class="me-3 p-2" src="./images/achieve_2.png" alt="">
                     <div>
-                        <h1 class="fw-bold fs-2 m-0" style="color:#458377;">349</h1>
+                        <h1 class="fw-bold fs-2 m-0" style="color:#458377;">{{ $totalPets }}</h1>
                         <h1 class="fs-5 m-0">Happy Pets</h1>
                     </div>
                 </div>
                 <div class="achievement-card p-4">
                     <img class="me-3 p-2" src="./images/achieve_3.png" alt="">
                     <div>
-                        <h1 class="fw-bold fs-2 m-0" style="color:#e86581;">930</h1>
-                        <h1 class="fs-5 m-0">Customers</h1>
+                        <h1 class="fw-bold fs-2 m-0" style="color:#e86581;">{{$totalDonations}}</h1>
+                        <h1 class="fs-5 m-0">Donations</h1>
                     </div>
                 </div>
             </div>

@@ -13,12 +13,13 @@
     <div class="col-md ps-2 pe-2">
       <div class="form-floating">
         <select class="form-select" id="type" aria-label="Floating label select example">
+        <!-- <option selected value="any">Any</option> -->
           <option value="dog">Dog</option>
           <option value="cat">Cat</option>
           <option value="rabbit">Rabbit</option>
           <option value="bird">Bird</option>
           <option value="horse">Horse</option>
-          <option value="barnyard">Barnyard</option>
+          <!-- <option value="barnyard">Barnyard</option> -->
         </select>
         <label for="floatingSelectGrid">Pet</label>
       </div>
@@ -64,9 +65,9 @@
           <option value="short">Short</option>
           <option value="medium">Medium</option>
           <option value="long">Long</option>
-          <option value="wire">Wire</option>
+          <!-- <option value="wire">Wire</option> -->
           <option value="hairless">Hairless</option>
-          <option value="curly">Curly</option>
+          <!-- <option value="curly">Curly</option> -->
         </select>
         <label for="floatingSelectGrid">Hair Length</label>
       </div>
@@ -74,16 +75,16 @@
     <div class="col-md ps-2 pe-2">
       <div class="form-floating">
         <select class="form-select" id="city" aria-label="Floating label select example">
-          <option selected value="any">Any</option>
-          <option value="Chicago,+Illinois">Chicago, Illinois</option>
-          <option value="Charleston,+South Carolina">Charleston, South Carolina</option>
-          <option value="Las+Vegas,+Nevada">Las Vegas, Nevada</option>
-          <option value="Seattle,+Washington">Seattle, Washington</option>
-          <option value="Seattle,+Washington">Seattle, Washington</option>
-          <option value="San+Francisco,+California"> San Francisco, California</option>
-          <option value="New+Orleans,+Louisiana">New Orleans, Louisiana</option>
-          <option value="Palm+Springs,+California">Palm Springs, California</option>
-          <option value="Sedona,+Arizona">Sedona, Arizona</option>
+        <option selected value="any">Any</option>
+        <option value="Dhaka">Dhaka</option>
+        <option value="Chittagong">Chittagong</option>
+        <option value="Rajshahi">Rajshahi</option>
+        <option value="Khulna">Khulna</option>
+        <option value="Barisal">Barisal</option>
+        <option value="Sylhet">Sylhet</option>
+        <option value="Rangpur">Rangpur</option>
+        <option value="Mymensingh">Mymensingh</option>
+
         </select>
         <label for="floatingSelectGrid">Near City</label>
       </div>

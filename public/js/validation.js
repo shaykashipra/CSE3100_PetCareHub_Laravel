@@ -67,3 +67,43 @@ function validateDescription(description) {
     return false;
   }
 }
+
+function validateSelect(select){
+  let input =select;
+  if(input=="" || input==null){
+    return false;
+  }else{
+    return true;
+  }
+}
+
+function validateDate(selectedDate) {
+  let regex = /^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])-(\d{4})$/;
+if (regex.test(selectedDate) || selectedDate == null) return false; 
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); 
+    return selectedDate >= today;
+}
+
+function validateTime(selectedDate, selectedTime) {
+  if (selectedDate==null||selectedTime==null) return false;
+    const now = new Date();
+    if (selectedDate.toDateString() === now.toDateString()) {
+        return selectedTime >= now;
+    }
+    return true; 
+  }
+
+  function validatePhoneApp(phone) {
+      let regex = /^[0-9]{11}$/;
+      let input = phone;
+    //not nullable
+      if (regex.test(input)) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+
+

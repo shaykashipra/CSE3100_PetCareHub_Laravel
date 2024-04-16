@@ -21,6 +21,12 @@ public function favourites()
 {
         return $this->belongsToMany(Pet::class, 'favourites')->withTimestamps();
 }
+ public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+
 
 
 

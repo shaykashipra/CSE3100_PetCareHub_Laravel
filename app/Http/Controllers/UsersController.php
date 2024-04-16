@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AdminUsersRequest;
+use App\Models\Pet;
 use App\Models\User;
 use App\Models\Message;
 use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Database\QueryException;
+use App\Http\Requests\AdminUsersRequest;
 
 class UsersController extends Controller
 {
 
      public function edit(Request $request){
         $users=User::all();
-        return view('pets.users',['user'=>$request->user(),'users'=>$users]);
+        return view('pets.users',['user'=>$users,'users'=>$users]);
     }
      public function update(AdminUsersRequest $request){
         // // Validation
@@ -23,7 +25,7 @@ class UsersController extends Controller
         //     'fnameEdit'=>'required|string',
         //     'lnameEdit'=>'required|string',
         //     'emailEdit'=>'required|email',
-        //     'phoneEdit'=>'required|digits:10|numeric',
+        //     'phoneEdit'=>'required|digits:11|numeric',
         //     'addressEdit'=>'required|string',
         //     'cityEdit'=>'required|string',
         //     'provinceEdit'=>'required',
@@ -46,9 +48,18 @@ class UsersController extends Controller
         return redirect()->route('users.edit')->with('status', 'user-profile-updated');
     }
     public function destroy(Request $request){
-        $user=User::find($request->get('id'));
-        $user->delete();
-        return redirect()->route('users.edit')->with('status', 'user-profile-deleted');
+
+    $user = User::find($request->get('id'));
+    
+    if ($user && $user->delete()) {
+    return redirect()->route('users.edit')->with('status', 'user-profile-deleted');
+    }
+    else{
+            return redirect()->route('users.edit')->with('status', 'user-profile-delete-failed');
+
+    }
+    
+  
     }
 
 
@@ -56,10 +67,9 @@ class UsersController extends Controller
     public function sendEmail(Request $request, $type) {
         if ($type == 'admin') {
             $mail = 'triviatruism@gmail.com';
-        } else {
-            // $mail = $request->receiver_email;
-                        $mail = 'triviatruism@gmail.com';
-
+        } 
+     else {
+            $mail = $request->receiver_email;
         }
         $details = [
             'name' => $request->name,

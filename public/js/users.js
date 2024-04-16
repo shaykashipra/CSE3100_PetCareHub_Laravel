@@ -82,7 +82,8 @@ updateBtn.addEventListener("click", (e) => {
         validFname = true;
         fname.classList.remove("is-invalid");
         fname.nextElementSibling.classList.add("d-none");
-    } else {
+    }
+     else {
         validFname = false;
         fname.nextElementSibling.classList.remove("d-none");
         fname.classList.add("is-invalid");

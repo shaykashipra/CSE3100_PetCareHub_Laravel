@@ -5,36 +5,42 @@ use Illuminate\Http\Request;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PetsController;
+use App\Http\Controllers\ZoomController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AddPetController;
+use App\Http\Controllers\CatApiController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FindPetController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\HowItWorksController;
+use App\Http\Controllers\AcceptTermsController;
+use App\Http\Controllers\AppointmentListController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Auth\Middleware\Authenticate as MiddlewareAuthenticate;
+// php artisan route:clear
 
 Route::get('/', [IndexController::class,'edit']
 )->name('main');
 //Routes with no authentication
-Route::get("/about-us", [AboutController::class, "index"])->name('about-us');
 
-Route::get("/contact", [ContactController::class, "edit"]);
-Route::get("/how-it-works", [HowItWorksController::class, "edit"]);
 Route::get("/filter-pets", [FindPetController::class, "findDogs"]);
 
 Route::get("/filter-pets", [FindPetController::class, "findDogs"]);
 Route::get("/pet-profile/{id}/{type}", [FindPetController::class, "petProfile"])->name('pet-profile');
 
 Route::post('/send-message/{type}', [UsersController::class, "sendEmail"])->name('send-email');
+
+Route::get("/conditions", [AcceptTermsController::class, "see_conditions"])->name('conditions');
+Route::get("/how-it-works", [HowItWorksController::class, "edit"])->name('how-it-works');
+Route::get("/about-us", [AboutController::class, "index"])->name('about-us');
+Route::get("/contact", [ContactController::class, "edit"])->name('contact');
 ///////////////////////////////////////////////////////////////
 //auth
 
@@ -54,8 +60,8 @@ Route::post('/send-message/{type}', [UsersController::class, "sendEmail"])->name
   /////////////////////////////////////////////////
   //Profile
 
-//  Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+  
+    Route::get('/profile', [ProfileController::class,'edit'])->name('profile.edit');
     // Other routes that require authentication
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile/pet-update', [ProfileController::class, 'petUpdate'])->name('profile.pet-update');
@@ -75,48 +81,53 @@ Route::post('/send-message/{type}', [UsersController::class, "sendEmail"])->name
    
 
     //Favourites
-    Route::get("/favourites", [FavouriteController::class, "edit"]);
+    Route::get("/favourites", [FavouriteController::class, "edit"])->name('favourites');
     Route::post("/favourites", [FavouriteController::class, "addFav"])->name('favourites.addFav');
 
    //Send Mail
    Route::post('/send-message/{type}', [UsersController::class, "sendEmail"])->name('send-email');
 
-// });
 
-// Route::middleware(['auth_admin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, "edit"])->name('dashboard.edit');
+ //appointment_form
 
-    //  dd(User::Find(session()->get('user_id')));
-  //  Route::get('/dashboard', [DashboardController::class, "edit"])->name('dashboard.edit');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    //Other routes that require authentication
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::patch('/profile/pet-update', [ProfileController::class, 'petUpdate'])->name('profile.pet-update');
-    Route::delete('/profile', [ProfileController::class, 'petDelete'])->name('profile.pet-delete');
+ Route::get("/appointment_form",[AppointmentListController::class,'edit'])->name('appointment_form');
+ Route::post("/appointment_form",[AppointmentListController::class,'store'])->name('appointment_form.store');
 
-   
-    Route::get('/users', [UsersController::class, "edit"])->name('users.edit');
-    Route::patch('/users', [UsersController::class, "update"])->name('users.update');
-    Route::delete('/users', [UsersController::class, "destroy"])->name('users.destroy');
+Route::get("/appointment_list", [AppointmentListController::class,'index'])->name('appointment_list');
+
+    /////////////////////////////////////////////////////////////////////////////
+             //Zoom
+
+    ////////////////////////////////////////////////////////////////////////////
+    Route::get('/zoom/pre_zoom_redirect/{id}', [ZoomController::class, 'preZoomRedirect'])->name('pre_zoom_redirect');
+
+    Route::get('/zoom', function () {
+        return view('zoom.index')->with('status', 'zoom');
+    });
+    Route::get('start', [ZoomController::class, 'index']);
+    Route::any('/zoom/zoom-meeting-create', [ZoomController::class, 'index'])->name('zoom-meeting-create');
     
 
-    Route::get("/settings", [SettingsController::class, "edit"])->name('settings.edit');
-    Route::put("/settings", [SettingsController::class, "update"])->name('settings.update');
-    Route::delete("/settings", [SettingsController::class, "destroy"])->name('settings.destroy');
-   
-     Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
+
+    //////////////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////
+    Route::get('/breeds', [CatApiController::class, 'showBreeds'])->name("breeds");
 
 
-    Route::get('/pets', [PetsController::class, "edit"])->name('pets.edit');
-    Route::patch('/pets', [PetsController::class, "update"])->name('pets.update');
-    Route::delete('/pets', [PetsController::class, "destroy"])->name('pets.destroy');
-
-   //Favourites
-    Route::get("/favourites", [FavouriteController::class, "edit"]);
-    Route::post("/favourites", [FavouriteController::class, "addFav"])->name('favourites.addFav');
-
-     //Send Mail
-   Route::post('/send-message/{type}', [UsersController::class, "sendEmail"])->name('send-email');
-
-
-// });
+    Route::get('/example',function(){
+      return view('exampleHosted');
+    });
+    // SSLCOMMERZ Start
+    Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+    Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+    
+    Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+    Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+    
+    Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+    Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+    Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+    
+    Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+    //SSLCOMMERZ END

@@ -15,8 +15,20 @@
 <body>
 
     <div class="login-container d-md-flex">
+     
         <div class="login-image login"></div>
         <div class="authentication-container">
+                 @if (session('status') === 'wrong_user')
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Unsuccessful! </strong>Wrong User entered.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @elseif (session('status') === 'log_in_first')
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Unsuccessful! </strong>Log In First
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
             <h1 class="title">Sign In</h1>
             <p class="mb-4">Please enter your credentials.</p>
         <!-- Session Status -->

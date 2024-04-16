@@ -19,14 +19,14 @@
         <div class="d-flex align-items-center justify-content-between">
             <div class="logo d-flex align-items-center">
                 <a href="/" class="nav-link d-flex align-items-center">
-                    <img src="./images/logo.png" class="img-fluid" alt="">
+                    <img src="{{asset('/images/logo.png')}}" class="img-fluid" alt="">
                     {{-- <h1 class="fs-3"></h1> --}}
                 </a>
             </div>
             <div class="d-flex align-items-center">
                 <div class="login-btn">
                     @if (session()->has('user_id'))
-                    <a href="./favourites"><i class="fa-solid fa-heart" title="Favourites"></i></a>
+                    <a href="{{asset('/favourites')}}"><i class="fa-solid fa-heart" title="Favourites"></i></a>
                     <a href="{{ route('logout') }}">Logout</a>
                     @else
                     <a href="{{route('register')}}">SignUp</a>
@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li title="Pets" class="nav-item ps-2">
-                        <a href="./pets" class="nav-link active text-white" aria-current="page">
+                        <a href="{{asset('/pets')}}" class="nav-link active text-white" aria-current="page">
                             <i class="fa-solid fa-dog pe-3"></i>
                             <span class="sidebar-item pe-3">Pets<span>
                         </a>
@@ -79,15 +79,31 @@
 
                 @endif
                 <li title="Add a Pet" class="nav-item ps-2">
-                    <a href="./add-pet" class="nav-link active text-white pe-3" aria-current="page">
+                    <a href="{{asset('/add-pet')}}" class="nav-link active text-white pe-3" aria-current="page">
                         <i class="fa-solid fa-paw pe-2"></i>
                         <span class="sidebar-item pe-3">Add a Pet</span>
                     </a>
                 </li>
                 <li title="Favourites" class="nav-item ps-2">
-                    <a href="./favourites" class="nav-link active text-white pe-3" aria-current="page">
+                    <a href="{{asset('/favourites')}}" class="nav-link active text-white pe-3" aria-current="page">
                         <i class="fa-solid fa-heart pe-2"></i>
                         <span class="sidebar-item pe-3">Favourites</span>
+                    </a>
+                </li>
+                <li title="Clinic" class="nav-item ps-2">
+                    <a href="{{route('clinic')}}" class="nav-link active text-white pe-3" aria-current="page">
+                        <i class="fa-solid fa-house-medical pe-2"></i>
+                        <span class="sidebar-item pe-3">Clinic</span>
+                    </a>
+                </li>
+                <li title="Hospital" class="nav-item ps-2">
+                @if(session()->has('user_id')&& session()->get('is_admin')==='1')
+                <a href="{{route('donation.show')}}" class="nav-link active text-white pe-3" aria-current="page">
+                 @else
+                    <a href="{{route('donation')}}" class="nav-link active text-white pe-3" aria-current="page">
+                @endif
+                        <i class="fa-solid fa-hand-holding-medical pe-2"></i>
+                        <span class="sidebar-item pe-3">Donation</span>
                     </a>
                 </li>
                 <li class="nav-item ps-2">

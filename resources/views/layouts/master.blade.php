@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{asset('/css/index.css')}}">
     <link rel="stylesheet" href="{{asset('/css/nav.css')}}">
     <link rel="stylesheet" href="{{asset('/css/footer.css')}}">
@@ -29,6 +29,7 @@
                     @else
                     <a href="{{route('register')}}">SignUp</a>
                     <a href="{{route('login')}}">Login</a>
+                    <a href="{{route('loginDoc')}}">Doctor</a>
                     @endif
                 </div>
     @if (session()->has('user_id'))
@@ -65,13 +66,16 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="how-it-works">How it works</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('how-it-works')}}">How it works</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="about-us">About Us</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('appointment_form')}}">Book appointment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="contact">Contact Us</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('about-us')}}">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{route('contact')}}">Contact Us</a>
                     </li>
                 </ul>
             </div>
@@ -95,13 +99,13 @@
                     <h5 class="mb-4 text-white">Help & Support</h5>
                     <ul class="list-unstyled footer-list">
                         <li class="mb-2">
-                            <a href="how-it-works" class="nav-link"><i class="fas fa-paw pe-3"></i>FAQ</a>
+                            <a href="{{route('how-it-works')}}" class="nav-link"><i class="fas fa-paw pe-3"></i>FAQ</a>
                         </li>
                         <li class="mb-2">
-                            <a href="about-us" class="nav-link"><i class="fas fa-paw pe-3"></i>About Us</a>
+                            <a href="{{route('about-us')}}" class="nav-link"><i class="fas fa-paw pe-3"></i>About Us</a>
                         </li>
                         <li class="mb-2">
-                            <a href="contact" class="nav-link"><i class="fas fa-paw pe-3"></i>Contact Us</a>
+                            <a href="{{route('contact')}}" class="nav-link"><i class="fas fa-paw pe-3"></i>Contact Us</a>
                         </li>
                         <li class="mb-2">
                             <a href="#!" class="nav-link"><i class="fas fa-paw pe-3"></i>Terms of Service</a>

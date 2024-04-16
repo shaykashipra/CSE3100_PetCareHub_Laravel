@@ -13,9 +13,15 @@ use Illuminate\Validation\Rules\Password;
 class SettingsController extends Controller
 {
     public function edit(Request $request){
+        if(session()->has('user_id')){
         return view('pets.settings',[
             'user'=>User::find($request->session()->get('user_id'))
         ]);
+    }
+    else{
+          return redirect('/login');
+
+    }
     }
 
     public function update(SettingsRequest $request)
@@ -26,15 +32,14 @@ class SettingsController extends Controller
 
     // Find the user by ID
     $user = User::find($userId);
-    //  dd($user);
-    // Check if the user exists
+  
     if (!$user) {
-        return redirect()->back()->with('error', 'User not found.');
+        return redirect('/login')->with('status', 'wrong_user');
     }
 
     // Validate the current password
     if (!Hash::check($request->input("current_password"), $user->password)) {
-        return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.']);
+        return redirect()->back()->with(['status' => 'password-updated-failed']);
     }
         $user->password=Hash::make($request->input('password'));
 

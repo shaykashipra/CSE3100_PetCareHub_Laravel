@@ -22,6 +22,7 @@ use App\Http\Controllers\AcceptTermsController;
 use App\Http\Controllers\AppointmentListController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Auth\Middleware\Authenticate as MiddlewareAuthenticate;
 // php artisan route:clear
@@ -131,3 +132,5 @@ Route::get("/appointment_list", [AppointmentListController::class,'index'])->nam
     
     Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
     //SSLCOMMERZ END
+
+    Route::post('/print-prescription/{id}', [PrescriptionController::class,'printPrescription'])->name('printPrescription');

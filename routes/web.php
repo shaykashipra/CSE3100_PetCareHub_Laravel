@@ -15,15 +15,23 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FindPetController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DonationController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\HowItWorksController;
 use App\Http\Controllers\AcceptTermsController;
-use App\Http\Controllers\AppointmentListController;
-use App\Http\Controllers\RegisteredUserController;
-use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ClinicIndexController;
 use App\Http\Controllers\PrescriptionController;
+use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\AppointmentListController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\DoctorAppointmentListController;
+use App\Http\Controllers\AllDoctorController;
+
 use Illuminate\Auth\Middleware\Authenticate as MiddlewareAuthenticate;
 // php artisan route:clear
 
@@ -61,7 +69,7 @@ Route::get("/contact", [ContactController::class, "edit"])->name('contact');
   /////////////////////////////////////////////////
   //Profile
 
-  
+  Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class,'edit'])->name('profile.edit');
     // Other routes that require authentication
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -89,48 +97,142 @@ Route::get("/contact", [ContactController::class, "edit"])->name('contact');
    Route::post('/send-message/{type}', [UsersController::class, "sendEmail"])->name('send-email');
 
 
- //appointment_form
+ });
 
- Route::get("/appointment_form",[AppointmentListController::class,'edit'])->name('appointment_form');
- Route::post("/appointment_form",[AppointmentListController::class,'store'])->name('appointment_form.store');
+Route::middleware(['auth_admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, "edit"])->name('dashboard.edit');
 
-Route::get("/appointment_list", [AppointmentListController::class,'index'])->name('appointment_list');
+    //  dd(User::Find(session()->get('user_id')));
+  //  Route::get('/dashboard', [DashboardController::class, "edit"])->name('dashboard.edit');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    //Other routes that require authentication
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::patch('/profile/pet-update', [ProfileController::class, 'petUpdate'])->name('profile.pet-update');
+    // Route::delete('/profile', [ProfileController::class, 'petDelete'])->name('profile.pet-delete');
+
+   
+    Route::get('/users', [UsersController::class, "edit"])->name('users.edit');
+    Route::patch('/users', [UsersController::class, "update"])->name('users.update');
+    Route::delete('/users', [UsersController::class, "destroy"])->name('users.destroy');
+    
+
+       //Doctor List
+   Route::get('/doctors', [AllDoctorController::class, 'edit'])->name('doctors.edit');
+   Route::patch('/doctors', [AllDoctorController::class, 'update'])->name('doctors.update');
+   Route::delete('/doctors', [AllDoctorController::class, 'destroy'])->name('doctors.destroy');
+   
+
+    // Route::get("/settings", [SettingsController::class, "edit"])->name('settings.edit');
+    // Route::put("/settings", [SettingsController::class, "update"])->name('settings.update');
+    // Route::delete("/settings", [SettingsController::class, "destroy"])->name('settings.destroy');
+   
+    //  Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
+
+
+    Route::get('/pets', [PetsController::class, "edit"])->name('pets.edit');
+    Route::patch('/pets', [PetsController::class, "update"])->name('pets.update');
+    Route::delete('/pets', [PetsController::class, "destroy"])->name('pets.destroy');
+
+   //Favourites
+    // Route::get("/favourites", [FavouriteController::class, "edit"]);
+    // Route::post("/favourites", [FavouriteController::class, "addFav"])->name('favourites.addFav');
+
+     //Send Mail
+  //  Route::post('/send-message/{type}', [UsersController::class, "sendEmail"])->name('send-email');
+
+     //AppointmentList
+     Route::get('/admin_app_list', [AppointmentListController::class, "edit"])->name('admin_app_list.edit');
+     Route::get('/admin_app_list2/{id}', [AppointmentListController::class, "edit2"])->name('admin_app_list.edit2');
+
+      Route::patch('/admin_app_list', [AppointmentListController::class, "update"])->name('admin_app_list.update');
+     Route::delete('/admin_app_list', [AppointmentListController::class, "destroy"])->name('admin_app_list.destroy');
+
+   
+
+    //  Donation List
+    Route::get('/donation_list', [DonationController::class, 'show'])->name('donation.show');
+
+
+});
+
+
+
+//Donation
+    Route::get("/donation", [DonationController::class, "edit"])->name('donation');
+    Route::post("/donation", [DonationController::class, "edit"])->name('donations.store');
+
+//clinic 
+//index
+     Route::get("/clinic", [ClinicIndexController::class, "index"])->name('clinic');
+//appointment_form
+
+     Route::get("/appointment_form",[AppointmentController::class,'edit'])->name('appointment_form');
+     Route::post("/appointment_form",[AppointmentController::class,'store'])->name('appointment_form.store');
+
+    Route::get("/appointment_list", [AppointmentListController::class,'index'])->name('appointment_list');
+
+
+    Route::get("/connect",function(){
+        return view('clinic.connect');
+    })->name('connect');
+
 
     /////////////////////////////////////////////////////////////////////////////
              //Zoom
 
     ////////////////////////////////////////////////////////////////////////////
-    Route::get('/zoom/pre_zoom_redirect/{id}', [ZoomController::class, 'preZoomRedirect'])->name('pre_zoom_redirect');
+Route::get('/zoom/pre_zoom_redirect/{id}', [ZoomController::class, 'preZoomRedirect'])->name('pre_zoom_redirect');
 
-    Route::get('/zoom', function () {
-        return view('zoom.index')->with('status', 'zoom');
-    });
-    Route::get('start', [ZoomController::class, 'index']);
-    Route::any('/zoom/zoom-meeting-create', [ZoomController::class, 'index'])->name('zoom-meeting-create');
-    
-
-
-    //////////////////////////////////////////////////////////////////////////////////
-
-    ///////////////////////////////////////////////////////////////////
-    Route::get('/breeds', [CatApiController::class, 'showBreeds'])->name("breeds");
+Route::get('/zoom', function () {
+    return view('zoom.index')->with('status', 'zoom');
+});
+Route::get('start', [ZoomController::class, 'index']);
+Route::any('/zoom/zoom-meeting-create', [ZoomController::class, 'index'])->name('zoom-meeting-create');
 
 
-    Route::get('/example',function(){
-      return view('exampleHosted');
-    });
-    // SSLCOMMERZ Start
-    Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
-    Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
-    
-    Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
-    Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
-    
-    Route::post('/success', [SslCommerzPaymentController::class, 'success']);
-    Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
-    Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
-    
-    Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
-    //SSLCOMMERZ END
 
-    Route::post('/print-prescription/{id}', [PrescriptionController::class,'printPrescription'])->name('printPrescription');
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////             Doctor               //////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  Route::get('/doctor/login', [AuthenticatedSessionController::class,'createDoc'])->name('loginDoc');
+  Route::post('/doctor/login', [AuthenticatedSessionController::class,'loginDoc'])->name('loginDoc.store');
+    Route::get('/doctor/logout', [LogoutController::class,'logoutDoc'])->name('logoutDoc');
+
+
+  Route::get("/doctor/list",[DoctorAppointmentListController::class,'index'])->name('doctor_app_list');
+        Route::patch('/doctor/list', [DoctorAppointmentListController::class, "update"])->name('doctor_app_list.update');
+
+     Route::delete('/doctor/list', [DoctorAppointmentListController::class, "destroy"])->name('doctor_app_list.destroy');
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/breeds', [CatApiController::class, 'showBreeds'])->name("breeds");
+
+
+Route::get('/example',function(){
+  return view('exampleHosted');
+});
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
+
+//Print prescription
+
+Route::post('/print-prescription/{id}', [PrescriptionController::class,'printPrescription'])->name('printPrescription');

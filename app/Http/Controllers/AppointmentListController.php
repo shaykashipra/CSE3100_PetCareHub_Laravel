@@ -23,9 +23,50 @@ class AppointmentListController extends Controller
     }
 }
 
+ public function edit()
+    {
+        if (session()->has('user_id')) {
+
+        $users=User::find(session('user_id'));
+        $doctors=Doctor::all();
+        $appointments = Appointment::with(['patient', 'doctor'])->get();
+
+        //  dd($appointments);
+            return view('clinic.admin_appointment_list', compact('appointments','doctors','users'));
+        } else {
+            
+            return redirect()->route('login');
+        }
+    }
 
 
 
+     public function edit2($id)
+    {
+        if (session()->has('user_id')) {
+
+        $appointment = Appointment::find($id);
+
+        $users=User::find(session('user_id'));
+        $doctors=Doctor::all();
+        $appointments = Appointment::with(['patient', 'doctor'])->get();
+                   $meetingDetails = session('meeting_details');
+            
+            // Update the appointment with meeting details
+            $appointment->start_url = $meetingDetails['start_url'];
+            $appointment->join_url = $meetingDetails['join_url'];
+            $appointment->meeting_id = $meetingDetails['meeting_id'];
+            $appointment->meeting_password = $meetingDetails['meeting_password'];
+
+            // Optionally, clear the meeting details from the session after saving
+            session()->forget('meeting_details');
+        //  dd($appointments);
+            return view('clinic.admin_appointment_list', compact('appointments','doctors','users'));
+        } else {
+            
+            return redirect()->route('login');
+        }
+    }
 
     public function update(Request $request){
 //   dd($request->get('idEdit'));

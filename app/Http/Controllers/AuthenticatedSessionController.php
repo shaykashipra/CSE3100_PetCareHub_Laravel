@@ -60,7 +60,34 @@ public function createDoc(){
     return view('doctor.login');
   }
 
-  
+   public function loginDoc(Request $request)
+{   
+   // Validate
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+    $doctor = Doctor::where('email', $request->email)->first();
+
+    if ($doctor && Hash::check($request->password, $doctor->password)) {
+       
+     Session::put('doc_id', $doctor->id);
+       Session::put('doc_name', $doctor->doctor_name);
+      // Session::put('doc_image', $doctor->image);
+      // Session::put('is_admin', $user->is_admin);
+
+        
+
+        return redirect('/doctor/list')->with(compact('doctor'));
+        
+        // return redirect()->intended();
+        // return redirect()->intended(RouteServiceProvider::HOME);
+
+    }
+
+    //  failed
+        return redirect('/doctor/login')->withInput($request->except('password'))->withErrors(['email' => 'Invalid Email']);
+}
 
 
 // public function toggleFavorite(Request $request, $petId)

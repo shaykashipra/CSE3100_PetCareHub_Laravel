@@ -11,7 +11,23 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'auth'=>\App\Http\Middleware\Authenticate::class,
+             'auth_admin'=> \App\Http\Middleware\AdminMiddleware::class,
+        ]);
+        $middleware->appendToGroup('auth', [
+            'auth'=>\App\Http\Middleware\Authenticate::class,
+        ]);
+        $middleware->appendToGroup('auth_admin', [
+            // 'auth'=>\App\Http\Middlewsare\Authenticate::class,
+             'auth_admin'=> \App\Http\Middleware\AdminMiddleware::class,
+        ]);
+        $middleware->validateCsrfTokens(except: [
+      
+                '/pay-via-ajax', '/success','/cancel','/fail','/ipn',
+    ]);
+
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

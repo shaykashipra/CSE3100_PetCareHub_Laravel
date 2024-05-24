@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('category');
             $table->string('room_id')->nullable(); 
             $table->string('status')->default('pending');
+            $table->text('prescription')->nullable();
             $table->timestamps();
-       
         });
     }
 

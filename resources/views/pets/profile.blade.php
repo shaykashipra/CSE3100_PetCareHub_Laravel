@@ -200,7 +200,7 @@
             <h1 class="fw-bold fs-3">Current Pets</h1>
         </div>
         <div class="container d-flex justify-content-between flex-wrap">
-            @if($pets->isEmpty())
+            @if(count($pets)==0)
             <div class="mb-3 text-center w-100">
                 <h3>You have not added any pets for adoption</h3>
                 <a href="/add-pet">

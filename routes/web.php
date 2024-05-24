@@ -204,6 +204,7 @@ Route::any('/zoom/zoom-meeting-create', [ZoomController::class, 'index'])->name(
 
   Route::get("/doctor/list",[DoctorAppointmentListController::class,'index'])->name('doctor_app_list');
         Route::patch('/doctor/list', [DoctorAppointmentListController::class, "update"])->name('doctor_app_list.update');
+        Route::patch('/doctor/list/edit', [DoctorAppointmentListController::class, "edit"])->name('doctor_app_list.edit');
 
      Route::delete('/doctor/list', [DoctorAppointmentListController::class, "destroy"])->name('doctor_app_list.destroy');
 

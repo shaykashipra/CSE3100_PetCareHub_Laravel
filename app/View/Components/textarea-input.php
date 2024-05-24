@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class textarea-input extends Component
+class textarea_input extends Component
 {
     /**
      * Create a new component instance.

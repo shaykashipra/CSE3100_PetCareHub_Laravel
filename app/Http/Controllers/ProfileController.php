@@ -17,12 +17,7 @@ use App\Http\Requests\PetProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
-     */
+   
     public function edit(Request $request)
     {
         // Check if user is authenticated manually
@@ -61,12 +56,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     *
-     * @param  \App\Http\Requests\ProfileUpdateRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+   
     public function update(ProfileUpdateRequest $request)
     {
 

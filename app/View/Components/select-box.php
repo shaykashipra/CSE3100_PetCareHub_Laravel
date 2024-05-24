@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class select-box extends Component
+class select_box extends Component
 {
     /**
      * Create a new component instance.

@@ -5,6 +5,7 @@ $(document).ready(function () {
     });
 });
 
+
 function removeErrorMessages() {
     const inputs = document.querySelectorAll(".form-control");
     const errorMessages = document.querySelectorAll(".text-danger");

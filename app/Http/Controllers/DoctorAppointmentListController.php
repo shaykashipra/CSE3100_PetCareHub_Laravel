@@ -22,7 +22,17 @@ $doctorId = session()->get('doc_id');
 
 
 
+    public function edit(Request $request){
+      $prescription=$request->prescription;
+    if($prescription){
+    return redirect()->route('doctor_app_list.update')->with('prescription', $prescription); 
+    }   
+    else{
+        return redirect()->route('doctor_app_list.update')->with('prescription', "Not Available");; 
 
+    }
+
+    }
 
 
 
@@ -38,13 +48,6 @@ $doctorId = session()->get('doc_id');
     $appointment->save();
     return redirect()->route('doctor_app_list')->with('status', 'appointment_updated');    
     }
-
-
-
-
-
-
-
 
 
 

@@ -27,7 +27,14 @@ public function favourites()
     }
 
 
-
-
+    public function updateRememberToken($token)
+    {
+        $this->remember_token = $token;
+        $this->save();
+    }
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
 
 }

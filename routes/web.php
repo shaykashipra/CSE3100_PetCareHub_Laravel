@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\PetsController;
 use App\Http\Controllers\ZoomController;
 use App\Http\Controllers\AboutController;
@@ -18,6 +20,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\AllDoctorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\HowItWorksController;
@@ -28,10 +31,10 @@ use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\AppointmentListController;
 use App\Http\Controllers\SslCommerzPaymentController;
+
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DoctorAppointmentListController;
-use App\Http\Controllers\AllDoctorController;
-
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Illuminate\Auth\Middleware\Authenticate as MiddlewareAuthenticate;
 // php artisan route:clear
 
@@ -65,6 +68,15 @@ Route::get("/contact", [ContactController::class, "edit"])->name('contact');
     Route::get('/addfav/{petId}', [IndexController::class,'addFav'])->name('addfav');
     Route::get('/removefav/{petId}', [IndexController::class,'removeFav'])->name('removefav');
 
+    ///////////////////////////////////////////////////////////
+//            Remember ME 
+    //////////////////////////////////////////////////////////
+
+    Route::get('/test-cookie', function() {
+      $token = Str::random(60);
+      Cookie::queue('test_remember_token', 'test_user_id|'.$token, 1209600); // 14 days
+      return 'Cookie has been set';
+  });
 
   /////////////////////////////////////////////////
   //Profile

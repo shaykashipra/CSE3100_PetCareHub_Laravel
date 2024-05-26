@@ -46,7 +46,8 @@
 
                 <div class="form-floating">
                     <span class="password-show-toggle toggle-btn"><span class="uil"></span></span>
-                    <x-text-input id="password" class="form-control floatingPassword"
+                    <x-text-input id="password" class="form-control floa
+                    tingPassword"
                                 type="password"
                                 name="password"
                                 autocomplete="current-password" />
@@ -57,10 +58,10 @@
 
                 <div class="d-flex justify-content-between">
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="remember">
+                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
                         <label for="remember" class="form-check-label">Keep me logged in</label>
                     </div>
-                    <div><a href="forgot-password">Forgot password?</a></div>
+                    <!-- <div><a href="{{asset('/forgot-password')}}">Forgot password?</a></div> -->
                 </div>
 
                 <div class="d-grid mb-4">

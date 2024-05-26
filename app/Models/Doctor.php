@@ -12,4 +12,15 @@ class Doctor extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+    
+    public function updateRememberToken($token)
+    {
+        $this->remember_token = $token;
+        $this->save();
+    }
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
 }

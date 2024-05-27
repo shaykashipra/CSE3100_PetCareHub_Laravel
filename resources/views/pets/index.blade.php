@@ -1,5 +1,4 @@
 @extends('layouts.master')
-{{-- setting title as Little Paws --}}
 @section('title','Pet Care Hub')
 
 @section('head')

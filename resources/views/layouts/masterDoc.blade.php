@@ -91,11 +91,10 @@
                     <ul class="list-unstyled footer-list">
                         <p class="text-center text-white">To get the latest on pet adoption and pet care, sign up to hear from us</p>
                         {{-- pb --}}
-                        {{-- @if(!session()->has('user_id')&&!) --}}
-                        {{-- <button class="footer-btn mb-3"  onclick="location.href='{{ route('register', [$pet['id'], 'contact']) }}'">SIGN UP</button> --}}
-                        {{-- @else --}}
-                         <button class="footer-btn mb-3"  onclick="location.href='{{ route('register') }}'">SIGN UP</button>
-                        {{-- @endif --}}
+
+                         <button class="footer-btn mb-3" id="signupButton">SIGN UP</button>
+
+                         {{-- @endif --}}
                         <ul class="list-unstyled d-flex flex-row justify-content-center">
                             <li>
                                 <a class="text-white px-2" target="_blank" href="https://www.facebook.com/">
@@ -136,6 +135,9 @@
     {{-- JavaScript --}}
     @yield('js')
     <script>
+         document.getElementById('signupButton').addEventListener('click', function() {
+        location.href = '{{ route("register") }}';
+    });
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>

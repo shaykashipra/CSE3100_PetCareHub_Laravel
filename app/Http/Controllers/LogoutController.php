@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class LogoutController extends Controller
 {
@@ -11,7 +12,8 @@ class LogoutController extends Controller
         $request->session()->flush();
 
         $request->session()->regenerateToken();
-        
+        Cookie::queue(Cookie::forget('remember_token'));
+
         return redirect('/');
     }
 

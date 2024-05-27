@@ -111,8 +111,13 @@ Route::get("/contact", [ContactController::class, "edit"])->name('contact');
 
  });
 
+ //////////////////////////////////////////////////////////
+
+//            admin
+ /////////////////////////////////////////////////////////
+
 Route::middleware(['auth_admin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, "edit"])->name('dashboard.edit');
+    Route::get('/dashboard', [DashboardController::class, "edit"])->name('dashboard.edit')->middleware('auth_admin');
 
     //  dd(User::Find(session()->get('user_id')));
   //  Route::get('/dashboard', [DashboardController::class, "edit"])->name('dashboard.edit');

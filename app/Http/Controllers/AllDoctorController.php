@@ -1,20 +1,44 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
+
+
 use App\Models\Doctor; 
-
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AllDoctorController extends Controller
 {
    
-        public function edit()
+        // public function edit()
+        // {
+        //     $doctors = Doctor::all();
+        //     return view('doctor.all_doctor_list', compact('doctors'));
+        // }
+        public function edit(Request $request)
         {
-            $doctors = Doctor::all();
-            return view('doctor.all_doctor_list', compact('doctors'));
-        }
+            // Check if the user_id is present in the session
+            if ($request->session()->has('user_id')) {
+                // Retrieve the user from the session
+                $user = User::find($request->session()->get('user_id'));
     
+                // Check if the user is valid and an admin
+                if ($user && $user->is_admin == 1) {
+                    // Fetch all doctors
+                    $doctors = Doctor::all();
+    
+                    // Return the doctor list view with the data
+                    return view('doctor.all_doctor_list', compact('doctors'));
+                } else {
+                    // Redirect to the login route with an access denied message
+                    return Redirect::route('login')->with('message', 'Access Denied. Please log in as an admin.');
+                }
+            } else {
+                // Redirect to the login route if no user_id is found in the session
+                return Redirect::route('login')->with('message', 'Access Denied. Please log in.');
+            }
+        }
         // public function edit(Request $request)
         // {
         //     $doctor = Doctor::findOrFail($request->id);

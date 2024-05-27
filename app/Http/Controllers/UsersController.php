@@ -10,13 +10,44 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\AdminUsersRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class UsersController extends Controller
 {
 
-     public function edit(Request $request){
-        $users=User::all();
-        return view('pets.users',['user'=>$users,'users'=>$users]);
+    //  public function edit(Request $request){
+    //     $users=User::all();
+    //     return view('pets.users',['user'=>$users,'users'=>$users]);
+    // }
+
+    public function edit(Request $request)
+    {
+        // Check if the user_id is present in the session
+        if ($request->session()->has('user_id')) {
+            // Retrieve the user from the session
+            $user = User::find($request->session()->get('user_id'));
+
+            // Check if the user is valid and an admin
+            if ($user && $user->is_admin == 1) {
+                // Add the user to the request attributes
+                $request->attributes->add(['user' => $user]);
+
+                // Fetch all users
+                $users = User::all();
+
+                // Return the users view with the data
+                return view('pets.users', [
+                    'user' => $user,
+                    'users' => $users
+                ]);
+            } else {
+                // Redirect to the login route with an access denied message
+                return Redirect::route('login')->with('message', 'Access Denied. Please log in as an admin.');
+            }
+        } else {
+            // Redirect to the login route if no user_id is found in the session
+            return Redirect::route('login')->with('message', 'Access Denied. Please log in.');
+        }
     }
      public function update(AdminUsersRequest $request){
         // // Validation

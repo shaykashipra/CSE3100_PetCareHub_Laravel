@@ -20,6 +20,7 @@ class FindPetController extends Controller
 
     $query = Pet::where('animal_type', $type);
    
+   
         if ($gender && $gender !== "any") {
             $query->where('gender', $gender);
         }
@@ -33,20 +34,24 @@ class FindPetController extends Controller
         //     });
         // }
         if ($coat && $coat !== "any") {
-            $query->whereHas('characteristics', function ($q) use ($coat) {
-                $q->where('characteristic', 'coat_length')->where('value', $coat);
-            });
+            // $query->whereHas('characteristics', function ($q) use ($coat) {
+            //     $q->where('characteristic', 'coat_length')->where('value', $coat);
+            // });
+            $query->where('coat_length', $coat);
         }
-        if ($city && $city !== "any") {
-            $query->whereHas('characteristics', function ($q) use ($city) {
-                $q->where('characteristic', 'location')->where('value', $city);
-            });
-        }
+        // if ($city && $city !== "any") {
+        //     $query->whereHas('characteristics', function ($q) use ($city) {
+        //         $q->where('characteristic', 'location')->where('value', $city);
+        //     });
+        // }
 
         $dogs = $query->where('is_adopted', 0)->get();
         return view('pets.filter-pets', [
-            'pets' => $dogs,
-            'user' =>User::find( $request->session()->get('user_id')),
+        
+                'pets' => $dogs,
+                'user' => User::find($request->session()->get('user_id')),
+                'selectedType' => $type, 
+          
         ]);
     }
 

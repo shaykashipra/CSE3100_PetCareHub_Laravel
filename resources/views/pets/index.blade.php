@@ -39,17 +39,17 @@
         </div> --}}
         <div class="d-flex card-container flex-wrap">
             <div class="card">
-                <a class="nav-link" href="filter-pets?type=dog"><img src="./images/dog.png" alt="dog">
+                <a class="nav-link" href="{{ url('filter-pets?type=dog') }}"><img src="./images/dog.png" alt="dog">
                     <p class="text-center">Dogs</p>
                 </a>
             </div>
             <div class="card">
-                <a class="nav-link" href="filter-pets?type=cat"><img src="./images/cat.png" alt="cat">
+                <a class="nav-link" href="{{ url('filter-pets?type=cat') }}"><img src="./images/cat.png" alt="cat">
                     <p class="text-center">Cats</p>
                 </a>
             </div>
             <div class="card">
-                <a class="nav-link" href="filter-pets?type=bird"><img src="./images/paw.png" alt="other animals">
+                <a class="nav-link" href="{{ url('filter-pets?type=bird') }}"><img src="./images/paw.png" alt="other animals">
                     <p class="text-center">Other Animals</p>
                 </a>
             </div>

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Pet;
 use App\Models\User;
+use App\Events\PetAdded;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddPetRequest;
+use App\Notifications\PetAddedNotification;
 
 class AddPetController extends Controller
 {
@@ -56,6 +58,10 @@ class AddPetController extends Controller
             ];
         }
         DB::table('characteristics')->insert($data);
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->notify(new PetAddedNotification($pet));
+        }
 
         return redirect()->route('add-pet.edit')->with('status', 'pet-added');
     }

@@ -14,11 +14,11 @@
       <div class="form-floating">
         <select class="form-select" id="type" aria-label="Floating label select example">
         <!-- <option selected value="any">Any</option> -->
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="rabbit">Rabbit</option>
-          <option value="bird">Bird</option>
-          <option value="horse">Horse</option>
+          <option value="dog" {{ $selectedType == 'dog' ? 'selected' : '' }}>Dog</option>
+          <option value="cat" {{ $selectedType == 'cat' ? 'selected' : '' }}>Cat</option>
+          <option value="rabbit" {{ $selectedType == 'rabbit' ? 'selected' : '' }}>Rabbit</option>
+          <option value="bird" {{ $selectedType == 'bird' ? 'selected' : '' }}>Bird</option>
+          <option value="horse" {{ $selectedType == 'horse' ? 'selected' : '' }}>Horse</option>
           <!-- <option value="barnyard">Barnyard</option> -->
         </select>
         <label for="floatingSelectGrid">Pet</label>
@@ -27,9 +27,12 @@
     <div class="col-md ps-2 pe-2">
       <div class="form-floating">
         <select class="form-select" id="gender" aria-label="Floating label select example">
-          <option name="gender" value="any" selected>Any</option>
+          <!-- <option name="gender" value="any" selected>Any</option>
           <option name="gender" value="male">Male</option>
-          <option name="gender" value="female">Female</option>
+          <option name="gender" value="female">Female</option> -->
+          <option value="any" {{ request('gender') == 'any' ? 'selected' : '' }} selected>Any</option>
+          <option value="male" {{ request('gender') == 'male' ? 'selected' : '' }}>Male</option>
+          <option value="female" {{ request('gender') == 'female' ? 'selected' : '' }}>Female</option>
         </select>
         <label for="floatingSelectGrid">Gender</label>
       </div>
@@ -37,11 +40,11 @@
     <div class="col-md ps-2 pe-2">
       <div class="form-floating">
         <select class="form-select" id="age" aria-label="Floating label select example">
-          <option selected value="any">Any</option>
-          <option name="age" value="baby">Baby</option>
-          <option name="age" value="young">Young</option>
-          <option name="age" value="adult">Adult</option>
-          <option name="age" value="senior">Senior</option>
+          <option value="any" {{ request('age') == 'any' ? 'selected' : '' }} selected >Any</option>
+          <option value="baby" {{ request('age') == 'baby' ? 'selected' : '' }}>Baby</option>
+          <option value="young" {{ request('age') == 'young' ? 'selected' : '' }}>Young</option>
+          <option value="adult" {{ request('age') == 'adult' ? 'selected' : '' }}>Adult</option>
+          <option value="senior" {{ request('age') == 'senior' ? 'selected' : '' }}>Senior</option>
         </select>
         <label for="floatingSelectGrid">Age</label>
       </div>
@@ -72,7 +75,7 @@
         <label for="floatingSelectGrid">Hair Length</label>
       </div>
     </div>
-    <div class="col-md ps-2 pe-2">
+    <!-- <div class="col-md ps-2 pe-2">
       <div class="form-floating">
         <select class="form-select" id="city" aria-label="Floating label select example">
         <option selected value="any">Any</option>
@@ -88,7 +91,7 @@
         </select>
         <label for="floatingSelectGrid">Near City</label>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="container mt-3 d-flex flex-column align-items-center justify-content-center ">
@@ -140,18 +143,38 @@
           </div>
         </div>
         <div class="col-md-3 d-flex flex-column align-items-center justify-content-center ">
-          <button type="button" onClick="location.href='{{ route('pet-profile', [$pet['id'], 'profile']) }}'" class="btn btn-primary mb-4 col-sm-9 ">Profile</button>
-          <button type="button" onClick="location.href='{{ route('pet-profile', [$pet['id'], 'contact']) }}'" class="btn btn-primary col-sm-9 mb-2">Contact</button>
+        <button type="button" onclick="viewProfile('{{ route('pet-profile', [$pet['id'], 'profile']) }}')" class="btn btn-primary mb-4 col-sm-9">Profile</button>
+<button type="button" onclick="contact('{{ route('pet-profile', [$pet['id'], 'contact']) }}')" class="btn btn-primary col-sm-9 mb-2">Contact</button>
+
+          <!-- <button type="button" onClick="location.href='{{ route('pet-profile', [$pet['id'], 'profile']) }}'" class="btn btn-primary mb-4 col-sm-9 ">Profile</button>
+          <button type="button" onClick="location.href='{{ route('pet-profile', [$pet['id'], 'contact']) }}'" class="btn btn-primary col-sm-9 mb-2">Contact</button> -->
         </div>
       </div>
     </div>
     @endforeach
+    
 
 
 
   </div>
 
   <script src="js/filter-pet.js"></script>
+  <script>
+    //  document.querySelectorAll('#filterForm select').forEach(select => {
+    //     select.addEventListener('change', function() {
+    //         document.getElementById('filterForm').submit();
+    //     });
+    // })
+  </script>
+  <script>
+    function viewProfile(url) {
+        window.location.href = url;
+    }
+
+    function contact(url) {
+        window.location.href = url;
+    }
+</script>
 
 
 @endsection

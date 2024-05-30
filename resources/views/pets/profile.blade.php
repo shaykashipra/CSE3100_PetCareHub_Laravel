@@ -209,6 +209,11 @@
             </div>
             @endif
             @foreach($pets as $pet)
+            <div class="mb-3 text-center w-100">
+                <a href="/add-pet">
+                    <button class="btn btn-primary">Add a Pet</button>
+                </a>
+            </div>
                 <div class="card mb-3 mt-3">
                     <div class="row no-gutters">
                         <div class="col-md-4">

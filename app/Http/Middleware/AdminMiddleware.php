@@ -20,7 +20,8 @@ class AdminMiddleware
       
          if ($request->session()->has('user_id')) {
             $user = User::find($request->session()->has('user_id'));
-            if ($user && $user->is_admin == 1) {  
+            // if(!$user) {
+             if ( $user && $user->is_admin == 1) {  
                 $request->attributes->add(['user' => $user]);
                 return $next($request);
 
@@ -30,9 +31,10 @@ class AdminMiddleware
 
         }
     }
+    else{
     
         return Redirect::route('login')->with('message', 'Access Denied. Please log in.');
-    
+    }
 }
 
 }

@@ -50,8 +50,20 @@ class FavouriteController extends Controller
             $favourite->pet_id = $request->input('pet_id');
             $favourite->save();
             return Redirect::back()->with('success', 'Pet added to favourites successfully');
-        } else {
-            return redirect()->route('login')->with('error', 'You need to login to add favourites.');
+        // } else {
+        //     return redirect()->route('login')->with('error', 'You need to login to add favourites.');
+        // }
+    } else {
+        // User is not logged in, store the pet ID in a cookie
+        $favourites = json_decode($request->cookie('favourites', '[]'), true);
+        
+        if (!in_array($request->input('pet_id'), $favourites)) {
+            $favourites[] = $request->input('pet_id'); // Add the pet ID to the list
+            
+            // Save the updated list back to the cookie
+            return Redirect::back()->withCookie(cookie()->forever('favourites', json_encode($favourites)))
+                                   ->with('success', 'Pet added to favourites temporarily. Please login to save permanently.');
         }
+    }
     }
 }

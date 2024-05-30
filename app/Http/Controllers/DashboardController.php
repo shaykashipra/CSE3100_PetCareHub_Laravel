@@ -18,7 +18,7 @@ class DashboardController extends Controller
             // Retrieve the user from the session
             $user = User::find($request->session()->get('user_id'));
 
-            // Check if the user is valid and an admin
+            // // Check if the user is valid and an admin
             if ($user && $user->is_admin == 1) {
                 // Add the user to the request attributes
                 $request->attributes->add(['user' => $user]);
@@ -51,11 +51,13 @@ class DashboardController extends Controller
                     'is_adopted' => $is_adopted,
                     'pets_added_date' => $pets_added_date
                 ]);
-            } else {
+            } 
+            else {
                 // Redirect to the login route with an access denied message
                 return Redirect::route('login')->with('message', 'Access Denied. Please log in as an admin.');
             }
-        } else {
+        }
+         else {
             // Redirect to the login route if no user_id is found in the session
             return Redirect::route('login')->with('message', 'Access Denied. Please log in.');
         }

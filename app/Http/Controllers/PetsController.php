@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PetsAdminRequest;
 use Carbon\Carbon;
 use App\Models\Pet;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Characteristic;
-use App\Models\User;
-
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\PetsAdminRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class PetsController extends Controller
 {
   public function edit(Request $request){
+    if ($request->session()->has('user_id')) {
+        // Retrieve the user from the session
+        $user = User::find($request->session()->get('user_id'));
+
+        // // Check if the user is valid and an admin
+        if ($user && $user->is_admin == 1) {
         // Arrays for dropdown, radio buttons
         $age=['Baby','Young','Adult','Senior'];
         $gender=['Male','Female'];
@@ -33,6 +40,16 @@ class PetsController extends Controller
             'user' => User::all(),
             'pets'=>$pets,
         ]);
+    } 
+    else {
+        // Redirect to the login route with an access denied message
+        return Redirect::route('login')->with('message', 'Access Denied. Please log in as an admin.');
+    }
+}
+ else {
+    // Redirect to the login route if no user_id is found in the session
+    return Redirect::route('login')->with('message', 'Access Denied. Please log in.');
+}
     }
 
     public function update(PetsAdminRequest $request){

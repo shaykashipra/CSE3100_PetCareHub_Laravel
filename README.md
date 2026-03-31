@@ -1,1 +1,1 @@
-<src img="Diagram/Diagram.png">
+<src img="Diagram\Diagram.png">
